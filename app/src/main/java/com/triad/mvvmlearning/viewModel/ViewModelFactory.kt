@@ -3,6 +3,7 @@ package com.triad.mvvmlearning.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.triad.mvvmlearning.repository.*
+import com.triad.mvvmlearning.view.attraction.AttractionViewModel
 import com.triad.mvvmlearning.view.dashbord.ui.dashboard.DashboardViewModel
 import com.triad.mvvmlearning.view.dashbord.ui.home.HomeViewModel
 import com.triad.mvvmlearning.view.dashbord.ui.notifications.NotificationsDetailsViewModel
@@ -16,6 +17,10 @@ class ViewModelFactory(private val repository: BaseRepository): ViewModelProvide
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
         return when{
+
+            modelClass.isAssignableFrom(AttractionViewModel::class.java) -> AttractionViewModel(
+                repository as AttractionRepository
+            ) as T
 
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(
                 repository as LoginRepository
