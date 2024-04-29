@@ -13,7 +13,6 @@ class AttractionActivity : AppCompatActivity() {
 
         val binding: ActivityAttractionBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_attraction)
-
     }
 
 }

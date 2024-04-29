@@ -11,14 +11,18 @@ import kotlinx.coroutines.launch
 
 class AttractionViewModel(private var repository: AttractionRepository) : ViewModel() {
 
-    private val _loginResponse: MutableLiveData<Resource<ArrayList<AttractionModelV>>> =
+    private val _attractionsResponse: MutableLiveData<Resource<ArrayList<AttractionModelV>>> =
         MutableLiveData()
 
-    val loginResponse: LiveData<Resource<ArrayList<AttractionModelV>>>
-        get() = _loginResponse
+    val attractions: LiveData<Resource<ArrayList<AttractionModelV>>>
+        get() = _attractionsResponse
 
-    fun getAllAttractions(lang: String, page: Int? = 1) = viewModelScope.launch {
-        _loginResponse.value = repository.getAllAttractions(lang, page)
+    init {
+        getAllAttractions("en")
+    }
+
+    private fun getAllAttractions(lang: String, page: Int? = 1) = viewModelScope.launch {
+        _attractionsResponse.value = repository.getAllAttractions(lang, page)
     }
 
 }
