@@ -17,8 +17,8 @@ class AttractionViewModel(private var repository: AttractionRepository) : ViewMo
     val loginResponse: LiveData<Resource<ArrayList<AttractionModelV>>>
         get() = _loginResponse
 
-    fun getAllAttractions(lang: String) = viewModelScope.launch {
-        _loginResponse.value = repository.getAllAttractions(lang)
+    fun getAllAttractions(lang: String, page: Int? = 1) = viewModelScope.launch {
+        _loginResponse.value = repository.getAllAttractions(lang, page)
     }
 
 }
