@@ -1,5 +1,9 @@
 package com.triad.mvvmlearning.model
 
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
+
 data class AttractionModelV(
     val id: Int,
     val name: String,
@@ -30,23 +34,31 @@ data class AttractionModelV(
     var images: List<ImageModelV> = arrayListOf(),
     var files: List<Any> = arrayListOf(),
     var links: List<Any> = arrayListOf(),
-) : BaseModel()
+) : BaseModel() {
+
+    fun getIntroduction(): Spanned = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(introduction, Html.FROM_HTML_MODE_COMPACT)
+    } else {
+        Html.fromHtml(introduction)
+    }
+
+    fun getFirstImageLink() = if (images.isNotEmpty()) images.first().getImageLink() else ""
+}
 
 data class CategoryModelV(
-    val id: Int,
-    val name: String
+    val id: Int, val name: String
 ) : BaseModel()
 
 data class TargetModelV(
-    val id: Int,
-    val name: String
+    val id: Int, val name: String
 ) : BaseModel()
 
 data class ServiceModelV(
-    val id: Int,
-    val name: String
+    val id: Int, val name: String
 ) : BaseModel()
 
 data class ImageModelV(
     val src: String, val subject: String, val ext: String,
-) : BaseModel()
+) : BaseModel() {
+    fun getImageLink() = src
+}

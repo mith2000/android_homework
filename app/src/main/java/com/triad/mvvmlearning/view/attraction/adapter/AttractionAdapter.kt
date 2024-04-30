@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.triad.mvvmlearning.R
 import com.triad.mvvmlearning.databinding.AttractionCardBinding
 import com.triad.mvvmlearning.model.AttractionModelV
 
@@ -16,6 +18,15 @@ class AttractionAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: AttractionModelV) {
             binding.attraction = data
+
+            // Load image
+            Glide.with(binding.attractionImage.context)
+                .load(data.getFirstImageLink())
+                .error(R.drawable.image_placeholder) // Your placeholder image
+                .into(binding.attractionImage)
+            // Load introduction
+            binding.attractionDescription.text = data.getIntroduction()
+
             binding.root.setOnClickListener {
                 listener?.invoke(data)
             }
