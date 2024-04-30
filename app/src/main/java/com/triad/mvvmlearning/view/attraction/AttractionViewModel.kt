@@ -18,11 +18,22 @@ class AttractionViewModel(private var repository: AttractionRepository) : ViewMo
         get() = _attractionsResponse
 
     init {
-        getAllAttractions("en")
+        getAllAttractions(LanguageOption.EN.code)
     }
 
-    private fun getAllAttractions(lang: String, page: Int? = 1) = viewModelScope.launch {
+    fun getAllAttractions(lang: String, page: Int? = 1) = viewModelScope.launch {
         _attractionsResponse.value = repository.getAllAttractions(lang, page)
     }
 
+    enum class LanguageOption(val code: String, val label: String) {
+        ZH_TW("zh-tw", "正體中文"),
+        ZH_CN("zh-cn", "簡體中文"),
+        EN("en", "English"),
+        JA("ja", "日本語"),
+        KO("ko", "한국어"),
+        ES("es", "Español"),
+        ID("id", "Bahasa Indonesia"),
+        TH("th", "ไทย"),
+        VI("vi", "Tiếng Việt")
+    }
 }
