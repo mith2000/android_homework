@@ -26,4 +26,5 @@
     <string name="services">Services</string>
     <string name="information">Information</string>
     <string name="friendly">Friendly</string>
+    <string name="want_more_detail">Want more detail?</string>
 </resources>

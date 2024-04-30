@@ -7,6 +7,7 @@ import android.text.Spanned
 import kotlinx.android.parcel.Parcelize
 
 const val ATTRACTION_MODEL_VIEW_KEY = "attraction"
+const val ATTRACTION_URL_KEY = "url"
 
 @Parcelize
 data class AttractionModelV(

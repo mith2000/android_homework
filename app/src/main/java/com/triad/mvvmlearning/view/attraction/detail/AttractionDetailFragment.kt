@@ -1,5 +1,6 @@
 package com.triad.mvvmlearning.view.attraction.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.triad.mvvmlearning.R
 import com.triad.mvvmlearning.databinding.FragmentAttractionDetailBinding
+import com.triad.mvvmlearning.model.ATTRACTION_URL_KEY
 import com.triad.mvvmlearning.network.AttractionApi
 import com.triad.mvvmlearning.repository.AttractionDetailRepository
 import com.triad.mvvmlearning.view.BaseFragment
+import com.triad.mvvmlearning.view.webView.WebViewActivity
 
 
 class AttractionDetailFragment :
@@ -44,9 +47,10 @@ class AttractionDetailFragment :
             }
         }
 
-        binding.backButton.setOnClickListener {
-            view.findNavController().popBackStack()
-        }
+        binding.backButton.setOnClickListener { view.findNavController().popBackStack() }
+
+        binding.tvURL.paint.isUnderlineText = true // add underline
+        binding.tvURL.setOnClickListener { onUrlTextClicked() }
     }
 
     override fun getViewModel() = AttractionDetailViewModel::class.java
@@ -63,4 +67,9 @@ class AttractionDetailFragment :
         return AttractionDetailRepository(remoteDataSource.buildApi(AttractionApi::class.java))
     }
 
+    private fun onUrlTextClicked() {
+        val intent = Intent(activity, WebViewActivity::class.java)
+        intent.putExtra(ATTRACTION_URL_KEY, viewModel.attraction.value?.url)
+        startActivity(intent)
+    }
 }

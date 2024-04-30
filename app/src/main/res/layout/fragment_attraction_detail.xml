@@ -65,23 +65,26 @@
 
             <TextView
                 android:id="@+id/tvName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/fragment_horizontal_margin"
+                android:layout_marginEnd="@dimen/fragment_horizontal_margin"
                 android:paddingVertical="@dimen/fragment_vertical_margin"
                 android:text="@{attraction.name}"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/carousel"
                 tools:text="Attraction Name" />
 
             <TextView
                 android:id="@+id/tvIntroduction"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{attraction.introductionReplaced}"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
                 app:layout_constraintStart_toStartOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvName"
                 tools:text="Attraction Introduction" />
@@ -110,10 +113,11 @@
 
             <TextView
                 android:id="@+id/tvTheme"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{attraction.categoryListName}"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
                 app:layout_constraintStart_toStartOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvThemeLabel"
                 tools:text="Theme" />
@@ -131,10 +135,11 @@
 
             <TextView
                 android:id="@+id/tvSubject"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{attraction.targetListName}"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
                 app:layout_constraintStart_toStartOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvSubjectLabel"
                 tools:text="Subject" />
@@ -152,10 +157,11 @@
 
             <TextView
                 android:id="@+id/tvAddress"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{attraction.address}"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
                 app:layout_constraintStart_toStartOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvAddressLabel"
                 tools:text="Address" />
@@ -173,10 +179,11 @@
 
             <TextView
                 android:id="@+id/tvOpen"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{attraction.open_time}"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
                 app:layout_constraintStart_toStartOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvOpenLabel"
                 tools:text="Opening Hours" />
@@ -194,10 +201,11 @@
 
             <TextView
                 android:id="@+id/tvService"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{attraction.serviceListName}"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
                 app:layout_constraintStart_toStartOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvServiceLabel"
                 tools:text="Services" />
@@ -215,19 +223,43 @@
 
             <TextView
                 android:id="@+id/tvFriendly"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{attraction.friendlyListName}"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
                 app:layout_constraintStart_toStartOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvFriendlyLabel"
                 tools:text="Friendly" />
+
+            <TextView
+                android:id="@+id/tvURLLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/want_more_detail"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tvName"
+                app:layout_constraintTop_toBottomOf="@id/tvFriendly" />
+
+            <TextView
+                android:id="@+id/tvURL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{attraction.url}"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvName"
+                app:layout_constraintStart_toStartOf="@id/tvName"
+                app:layout_constraintTop_toBottomOf="@id/tvURLLabel"
+                tools:text="URL" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFriendly" />
+                app:layout_constraintTop_toBottomOf="@id/tvURL" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
