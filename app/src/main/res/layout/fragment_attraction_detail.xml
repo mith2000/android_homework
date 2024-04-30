@@ -82,7 +82,7 @@
                 android:id="@+id/tvIntroduction"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{attraction.introductionReplaced}"
+                android:text="@{attraction.introductionFromHtml}"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/tvName"
                 app:layout_constraintStart_toStartOf="@id/tvName"

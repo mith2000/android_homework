@@ -3,7 +3,6 @@ package com.triad.mvvmlearning.model
 import android.os.Build
 import android.os.Parcelable
 import android.text.Html
-import android.text.Spanned
 import kotlinx.android.parcel.Parcelize
 
 const val ATTRACTION_MODEL_VIEW_KEY = "attraction"
@@ -40,25 +39,15 @@ data class AttractionModelV(
     var images: List<ImageModelV> = arrayListOf(),
 ) : BaseModel(), Parcelable {
 
-    /// Formatting HTML to Spanned
-    fun getIntroduction(): Spanned = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        Html.fromHtml(introduction, Html.FROM_HTML_MODE_COMPACT)
-    } else {
-        Html.fromHtml(introduction)
+    /// Formatting HTML to show right tags
+    fun getIntroductionFromHtml(): String {
+        val formattedIntroduction = introduction.replace("\r\n", "<br>")
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(formattedIntroduction, Html.FROM_HTML_MODE_COMPACT).toString()
+        } else {
+            Html.fromHtml(formattedIntroduction).toString()
+        }
     }
-
-    /// Manual formatting HTML to keep value as String to handle \n
-    fun getIntroductionReplaced(): String = introduction
-        .replace("&nbsp;", " ")
-        .replace("&ldquo;", "\"")
-        .replace("&rdquo;", "\"")
-        .replace("&amp;", "&")
-        .replace("&lt;", "<")
-        .replace("&gt;", ">")
-        .replace("&quot;", "\"")
-        .replace("&apos;", "'")
-        .replace("\\r\\n", "\n")
-        .replace("\\t", "\t")
 
     /// Get first image if have for the Card layout
     fun getFirstImageLink() = if (images.isNotEmpty()) images.first().getImageLink() else ""
@@ -79,22 +68,22 @@ data class AttractionModelV(
 
 @Parcelize
 data class CategoryModelV(
-    val id: Int, val name: String
+    val id: Int, val name: String,
 ) : BaseModel(), Parcelable
 
 @Parcelize
 data class TargetModelV(
-    val id: Int, val name: String
+    val id: Int, val name: String,
 ) : BaseModel(), Parcelable
 
 @Parcelize
 data class ServiceModelV(
-    val id: Int, val name: String
+    val id: Int, val name: String,
 ) : BaseModel(), Parcelable
 
 @Parcelize
 data class FriendlyModelV(
-    val id: Int, val name: String
+    val id: Int, val name: String,
 ) : BaseModel(), Parcelable
 
 @Parcelize
