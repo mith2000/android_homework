@@ -22,10 +22,9 @@ class AttractionAdapter(
             // Load image
             Glide.with(binding.attractionImage.context)
                 .load(data.getFirstImageLink())
-                .error(R.drawable.image_placeholder) // Your placeholder image
+                .placeholder(R.drawable.image_placeholder)
+                .error(R.drawable.image_placeholder)
                 .into(binding.attractionImage)
-            // Load introduction
-            binding.attractionDescription.text = data.getIntroduction()
 
             binding.root.setOnClickListener {
                 listener?.invoke(data)

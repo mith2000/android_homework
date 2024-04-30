@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.triad.mvvmlearning.R
 import com.triad.mvvmlearning.databinding.FragmentAttractionBinding
+import com.triad.mvvmlearning.model.ATTRACTION_MODEL_VIEW_KEY
 import com.triad.mvvmlearning.model.AttractionModelV
 import com.triad.mvvmlearning.network.AttractionApi
 import com.triad.mvvmlearning.network.Resource
@@ -113,9 +114,9 @@ class AttractionFragment :
     }
 
     private fun attractionAdapterListener(data: AttractionModelV) {
-        Toast.makeText(requireContext(), data.name, Toast.LENGTH_SHORT).show()
-        val bundle = bundleOf("amount" to "data")
-        view?.findNavController()?.navigate(R.id.action_attractionFragment_to_attractionDetailFragment, bundle)
+        val bundle = bundleOf(ATTRACTION_MODEL_VIEW_KEY to data)
+        view?.findNavController()
+            ?.navigate(R.id.action_attractionFragment_to_attractionDetailFragment, bundle)
     }
 
 }

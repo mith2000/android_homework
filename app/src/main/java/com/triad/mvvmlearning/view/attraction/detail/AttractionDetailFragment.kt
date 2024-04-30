@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.triad.mvvmlearning.R
 import com.triad.mvvmlearning.databinding.FragmentAttractionDetailBinding
 import com.triad.mvvmlearning.network.AttractionApi
@@ -19,6 +20,29 @@ class AttractionDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.handleArgument(arguments)
+
+        viewModel.attraction.observe(viewLifecycleOwner) {
+            binding.attraction = it
+
+            if (it.images.isNotEmpty()) {
+                /// I have tried MotionLayout but it didn't work
+                /// https://developer.android.com/develop/ui/views/animations/motionlayout/carousel
+                /// I have tried CarouselLayoutManager from Material but was limited by time with library error
+                /// So I will use CarouselView
+                binding.carousel.setImageListener { position, imageView ->
+                    Glide.with(imageView.context)
+                        .load(it.images[position].getImageLink())
+                        .placeholder(R.drawable.image_placeholder)
+                        .error(R.drawable.image_placeholder)
+                        .into(imageView)
+                }
+                binding.carousel.pageCount = it.images.size
+            } else {
+                binding.carousel.setImageListener { _, imageView -> imageView.setImageResource(R.drawable.image_placeholder) }
+                binding.carousel.pageCount = 1
+            }
+        }
 
         binding.backButton.setOnClickListener {
             view.findNavController().popBackStack()

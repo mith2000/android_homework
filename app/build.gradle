@@ -91,4 +91,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     kapt "com.github.bumptech.glide:compiler:4.14.2"
+
+    // https://mvnrepository.com/artifact/com.synnapps/carouselview
+    implementation("com.synnapps:carouselview:0.1.5")
 }

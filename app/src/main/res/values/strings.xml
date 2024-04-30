@@ -19,4 +19,11 @@
     <string name="get_data_failed">Get data failed</string>
     <string name="not_found">Not found %1$s</string>
     <string name="back_button">Back Button</string>
+    <string name="theme">Theme</string>
+    <string name="subject">Subject</string>
+    <string name="address">Address</string>
+    <string name="opening_hours">Opening Hours</string>
+    <string name="services">Services</string>
+    <string name="information">Information</string>
+    <string name="friendly">Friendly</string>
 </resources>

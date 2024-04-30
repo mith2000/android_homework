@@ -2,6 +2,7 @@ package com.triad.mvvmlearning.responses.attraction
 
 import com.triad.mvvmlearning.model.AttractionModelV
 import com.triad.mvvmlearning.model.CategoryModelV
+import com.triad.mvvmlearning.model.FriendlyModelV
 import com.triad.mvvmlearning.model.ImageModelV
 import com.triad.mvvmlearning.model.ServiceModelV
 import com.triad.mvvmlearning.model.TargetModelV
@@ -38,7 +39,7 @@ data class AttractionRaw(
     val category: List<CategoryRaw>? = arrayListOf(),
     val target: List<TargetRaw>? = arrayListOf(),
     val service: List<ServiceRaw>? = arrayListOf(),
-    val friendly: List<Any>? = arrayListOf(),
+    val friendly: List<FriendlyRaw>? = arrayListOf(),
     val images: List<ImageRaw>? = arrayListOf(),
     val files: List<Any>? = arrayListOf(),
     val links: List<Any>? = arrayListOf(),
@@ -87,6 +88,12 @@ data class AttractionRaw(
         }
         model.service = listService
 
+        val listFriendly: ArrayList<FriendlyModelV> = arrayListOf()
+        friendly?.forEach {
+            listFriendly.add(it.raw2Model())
+        }
+        model.service = listService
+
         val listImage: ArrayList<ImageModelV> = arrayListOf()
         images?.forEach {
             listImage.add(it.raw2Model())
@@ -118,6 +125,14 @@ data class ServiceRaw(
 ) : BaseRaw<ServiceModelV>() {
     override fun raw2Model(): ServiceModelV {
         return ServiceModelV(id = id, name = name ?: "--")
+    }
+}
+
+data class FriendlyRaw(
+    val id: Int = -1, val name: String? = null,
+) : BaseRaw<FriendlyModelV>() {
+    override fun raw2Model(): FriendlyModelV {
+        return FriendlyModelV(id = id, name = name ?: "--")
     }
 }
 
