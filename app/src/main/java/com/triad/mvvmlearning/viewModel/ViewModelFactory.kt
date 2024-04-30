@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.triad.mvvmlearning.repository.*
 import com.triad.mvvmlearning.view.attraction.AttractionViewModel
+import com.triad.mvvmlearning.view.attraction.detail.AttractionDetailViewModel
 import com.triad.mvvmlearning.view.dashbord.ui.dashboard.DashboardViewModel
 import com.triad.mvvmlearning.view.dashbord.ui.home.HomeViewModel
 import com.triad.mvvmlearning.view.dashbord.ui.notifications.NotificationsDetailsViewModel
@@ -20,6 +21,10 @@ class ViewModelFactory(private val repository: BaseRepository): ViewModelProvide
 
             modelClass.isAssignableFrom(AttractionViewModel::class.java) -> AttractionViewModel(
                 repository as AttractionRepository
+            ) as T
+
+            modelClass.isAssignableFrom(AttractionDetailViewModel::class.java) -> AttractionDetailViewModel(
+                repository as AttractionDetailRepository
             ) as T
 
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(

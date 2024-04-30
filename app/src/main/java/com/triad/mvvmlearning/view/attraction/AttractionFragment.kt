@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.triad.mvvmlearning.R
@@ -112,10 +114,8 @@ class AttractionFragment :
 
     private fun attractionAdapterListener(data: AttractionModelV) {
         Toast.makeText(requireContext(), data.name, Toast.LENGTH_SHORT).show()
-//        navController.navigate(
-//            R.id.momentDetailFragment,
-//            bundleOf(KEY_ARGUMENT_FRAGMENT to data.momentId)
-//        )
+        val bundle = bundleOf("amount" to "data")
+        view?.findNavController()?.navigate(R.id.action_attractionFragment_to_attractionDetailFragment, bundle)
     }
 
 }

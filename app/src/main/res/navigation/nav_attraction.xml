@@ -9,5 +9,15 @@
         android:id="@+id/attractionFragment"
         android:name="com.triad.mvvmlearning.view.attraction.AttractionFragment"
         android:label="fragment_attraction"
-        tools:layout="@layout/fragment_attraction" />
+        tools:layout="@layout/fragment_attraction">
+        <action
+            android:id="@+id/action_attractionFragment_to_attractionDetailFragment"
+            app:destination="@id/attractionDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/attractionDetailFragment"
+        android:name="com.triad.mvvmlearning.view.attraction.detail.AttractionDetailFragment"
+        android:label="fragment_attraction_detail"
+        tools:layout="@layout/fragment_attraction_detail" />
 </navigation>

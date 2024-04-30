@@ -18,4 +18,5 @@
     <string name="attraction_image">Attraction Image</string>
     <string name="get_data_failed">Get data failed</string>
     <string name="not_found">Not found %1$s</string>
+    <string name="back_button">Back Button</string>
 </resources>
