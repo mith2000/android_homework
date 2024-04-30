@@ -11,18 +11,29 @@ import kotlinx.coroutines.launch
 
 class AttractionViewModel(private var repository: AttractionRepository) : ViewModel() {
 
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+    private var _currentLanguageOption: LanguageOption = LanguageOption.EN
     private val _attractionsResponse: MutableLiveData<Resource<ArrayList<AttractionModelV>>> =
         MutableLiveData()
 
+    val isLoading: LiveData<Boolean> get() = _isLoading
     val attractions: LiveData<Resource<ArrayList<AttractionModelV>>>
         get() = _attractionsResponse
 
     init {
-        getAllAttractions(LanguageOption.EN.code)
+        getAllAttractions(_currentLanguageOption.code)
     }
 
-    fun getAllAttractions(lang: String, page: Int? = 1) = viewModelScope.launch {
+    private fun getAllAttractions(lang: String, page: Int? = 1) = viewModelScope.launch {
+        _isLoading.value = true
         _attractionsResponse.value = repository.getAllAttractions(lang, page)
+        _isLoading.value = false
+    }
+
+    fun changeLanguageOption(option: LanguageOption) {
+        if (_currentLanguageOption == option) return
+        _currentLanguageOption = option
+        getAllAttractions(option.code)
     }
 
     enum class LanguageOption(val code: String, val label: String) {

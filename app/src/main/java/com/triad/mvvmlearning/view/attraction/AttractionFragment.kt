@@ -17,6 +17,7 @@ import com.triad.mvvmlearning.model.AttractionModelV
 import com.triad.mvvmlearning.network.AttractionApi
 import com.triad.mvvmlearning.network.Resource
 import com.triad.mvvmlearning.repository.AttractionRepository
+import com.triad.mvvmlearning.utility.visible
 import com.triad.mvvmlearning.view.BaseFragment
 import com.triad.mvvmlearning.view.attraction.adapter.AttractionAdapter
 
@@ -33,21 +34,24 @@ class AttractionFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.attractions.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is Resource.Success -> {
-                    adapter.addAllItems(it.value)
-                }
-
-                is Resource.Failure -> {
-                    Toast.makeText(requireContext(), R.string.get_data_failed, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        })
+        viewModel.isLoading.observe(viewLifecycleOwner, binding.vLoading.root::visible)
+        viewModel.attractions.observe(viewLifecycleOwner, attractionsObserver())
 
         initRecyclerView()
         setupLanguageButton()
+    }
+
+    private fun attractionsObserver(): Observer<Resource<ArrayList<AttractionModelV>>> = Observer {
+        when (it) {
+            is Resource.Success -> {
+                adapter.addAllItems(it.value)
+            }
+
+            is Resource.Failure -> {
+                Toast.makeText(requireContext(), R.string.get_data_failed, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
     }
 
     private fun setupLanguageButton() {
@@ -63,11 +67,12 @@ class AttractionFragment :
                     .find { it.label == selectedLanguageLabel }
 
                 if (selectedLanguageOption != null) {
-                    viewModel.getAllAttractions(selectedLanguageOption.code)
+                    viewModel.changeLanguageOption(selectedLanguageOption)
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        getString(R.string.not_found, selectedLanguageLabel), Toast.LENGTH_SHORT
+                        getString(R.string.not_found, selectedLanguageLabel),
+                        Toast.LENGTH_SHORT,
                     ).show()
                 }
                 true
