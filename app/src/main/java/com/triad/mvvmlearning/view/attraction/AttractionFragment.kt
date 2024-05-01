@@ -44,6 +44,19 @@ class AttractionFragment :
         setupLanguageButton()
     }
 
+
+    override fun getViewModel() = AttractionViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater, container: ViewGroup?
+    ): ViewDataBinding {
+        return DataBindingUtil.inflate(inflater, R.layout.fragment_attraction, container, false)
+    }
+
+    override fun getFragmentRepository(): AttractionRepository {
+        return AttractionRepository(remoteDataSource.buildApi(AttractionApi::class.java))
+    }
+
     private fun attractionsObserver(): Observer<Resource<ArrayList<AttractionModelV>>> = Observer {
         when (it) {
             is Resource.Success -> {
@@ -60,15 +73,18 @@ class AttractionFragment :
     private fun setupLanguageButton() {
         binding.languageButton.setOnClickListener { button ->
             val popupMenu = PopupMenu(context, button)
+            // When the button is clicked, a PopupMenu is created with the language options.
             for (languageOption in AttractionViewModel.LanguageOption.values()) {
                 popupMenu.menu.add(languageOption.label)
             }
 
+            // When a menu item is clicked, it finds the corresponding LanguageOption.
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 val selectedLanguageLabel = menuItem.title.toString()
                 val selectedLanguageOption = AttractionViewModel.LanguageOption.values()
                     .find { it.label == selectedLanguageLabel }
 
+                // If the selected LanguageOption is found, it calls the viewModel's changeLanguageOption function with the selected LanguageOption.
                 if (selectedLanguageOption != null) {
                     viewModel.changeLanguageOption(selectedLanguageOption)
                 } else {
@@ -85,23 +101,12 @@ class AttractionFragment :
         }
     }
 
-
-    override fun getViewModel() = AttractionViewModel::class.java
-
-    override fun getFragmentBinding(
-        inflater: LayoutInflater, container: ViewGroup?
-    ): ViewDataBinding {
-        return DataBindingUtil.inflate(inflater, R.layout.fragment_attraction, container, false)
-    }
-
-    override fun getFragmentRepository(): AttractionRepository {
-        return AttractionRepository(remoteDataSource.buildApi(AttractionApi::class.java))
-    }
-
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
+        // When items are inserted into the adapter, it checks if the inserted items are at the start of the list (positionStart == 0).
+        // If they are, it scrolls the RecyclerView to the start.
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)

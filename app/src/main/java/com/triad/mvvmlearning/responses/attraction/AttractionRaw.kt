@@ -44,6 +44,15 @@ data class AttractionRaw(
     val files: List<Any>? = arrayListOf(),
     val links: List<Any>? = arrayListOf(),
 ) : BaseRaw<AttractionModelV>() {
+
+    /**
+     * This function converts raw data to the AttractionModelV model.
+     *
+     * It creates an instance of AttractionModelV with the provided raw data, handling null values with default values.
+     * It also converts raw data for categories, targets, services, friendlies, and images to their respective models and adds them to the AttractionModelV instance.
+     *
+     * @return An instance of AttractionModelV with the converted data.
+     */
     override fun raw2Model(): AttractionModelV {
         val model = AttractionModelV(
             id = id,
@@ -71,33 +80,23 @@ data class AttractionRaw(
         )
 
         val listCategory: ArrayList<CategoryModelV> = arrayListOf()
-        category?.forEach {
-            listCategory.add(it.raw2Model())
-        }
+        category?.forEach { listCategory.add(it.raw2Model()) }
         model.category = listCategory
 
         val listTarget: ArrayList<TargetModelV> = arrayListOf()
-        target?.forEach {
-            listTarget.add(it.raw2Model())
-        }
+        target?.forEach { listTarget.add(it.raw2Model()) }
         model.target = listTarget
 
         val listService: ArrayList<ServiceModelV> = arrayListOf()
-        service?.forEach {
-            listService.add(it.raw2Model())
-        }
+        service?.forEach { listService.add(it.raw2Model()) }
         model.service = listService
 
         val listFriendly: ArrayList<FriendlyModelV> = arrayListOf()
-        friendly?.forEach {
-            listFriendly.add(it.raw2Model())
-        }
+        friendly?.forEach { listFriendly.add(it.raw2Model()) }
         model.service = listService
 
         val listImage: ArrayList<ImageModelV> = arrayListOf()
-        images?.forEach {
-            listImage.add(it.raw2Model())
-        }
+        images?.forEach { listImage.add(it.raw2Model()) }
         model.images = listImage
 
         return model

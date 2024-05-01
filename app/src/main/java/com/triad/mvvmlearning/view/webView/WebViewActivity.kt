@@ -21,6 +21,17 @@ class WebViewActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * This function handles the setup and configuration of a WebView.
+     *
+     * It sets the WebViewClient for the WebView, enabling the WebView to handle its own URL loading.
+     * It also enables JavaScript for the WebView, as some webpages may require it to function properly.
+     *
+     * The function retrieves the URL to be loaded from the intent extras using the key ATTRACTION_URL_KEY.
+     * It then loads the URL into the WebView.
+     *
+     * @param binding The ActivityWebviewBinding instance that contains the WebView to be configured.
+     */
     @SuppressLint("SetJavaScriptEnabled")
     private fun handleWebView(binding: ActivityWebviewBinding) {
         binding.webview.webViewClient = WebViewClient()
@@ -28,7 +39,8 @@ class WebViewActivity : AppCompatActivity() {
         // Enable JavaScript if the webpage requires it
         binding.webview.settings.javaScriptEnabled = true
 
-        val url = intent.getStringExtra(ATTRACTION_URL_KEY) // retrieve the URL
+        // retrieve the URL
+        val url = intent.getStringExtra(ATTRACTION_URL_KEY)
         binding.webview.loadUrl(url)
     }
 

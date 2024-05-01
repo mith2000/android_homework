@@ -19,19 +19,18 @@ class AttractionAdapter(
         fun bind(data: AttractionModelV) {
             binding.attraction = data
 
-            // Load image
+            // Load image from url with Glide. Also setup a placeholder and error image
             Glide.with(binding.attractionImage.context)
                 .load(data.getFirstImageLink())
                 .placeholder(R.drawable.image_placeholder)
                 .error(R.drawable.image_placeholder)
                 .into(binding.attractionImage)
 
-            binding.root.setOnClickListener {
-                listener?.invoke(data)
-            }
+            binding.root.setOnClickListener { listener?.invoke(data) }
         }
     }
 
+    /// Clear the list and add all items
     @SuppressLint("NotifyDataSetChanged")
     fun addAllItems(attractions: List<AttractionModelV>) {
         this.attractions.clear()
